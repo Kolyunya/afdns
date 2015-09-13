@@ -1,0 +1,5 @@
+#!/bin/sh
+BLACK_LIST_FILE="/etc/bind/named.conf.block"
+BLACK_LIST_URL="http://pgl.yoyo.org/as/serverlist.php?hostformat=bindconfig&showintro=1&mimetype=plaintext"
+wget --quiet --output-document=$BLACK_LIST_FILE $BLACK_LIST_URL
+afdns-launch

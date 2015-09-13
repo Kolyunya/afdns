@@ -1,0 +1,2 @@
+#!/bin/sh
+service bind9 restart 2>/dev/null
