@@ -1,5 +1,30 @@
 #!/bin/sh
-BLACK_LIST_FILE="/etc/bind/named.conf.block"
-BLACK_LIST_URL="http://pgl.yoyo.org/as/serverlist.php?hostformat=bindconfig&showintro=1&mimetype=plaintext"
-wget --quiet --output-document=$BLACK_LIST_FILE $BLACK_LIST_URL
+# This scipt parses DNS server blacklist
+
+# Temporary hosts file used for parsing
+TEMP_HOSTS_FILE="/tmp/named.conf.block"
+
+# DNS server blacklist file
+HOSTS_FILE="/etc/bind/named.conf.block"
+
+# Source hosts file URL
+HOSTS_URL="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+
+# Download the latest version of hosts file
+wget --quiet --output-document=$TEMP_HOSTS_FILE $HOSTS_URL
+
+# Create an empty blacklist file
+#cp /dev/null $HOSTS_FILE
+
+# Perform parsing
+awk '
+    /^0\.0\.0\.0 / {
+        print "zone \""$2"\" { type master; notify no; file \"null.zone.file\"; };"
+    }
+' $TEMP_HOSTS_FILE > $HOSTS_FILE
+
+# Remove temporary hosts file
+rm $TEMP_HOSTS_FILE
+
+# Restart the DNS server
 afdns-launch
