@@ -11,17 +11,17 @@ HOSTS_FILE="/etc/bind/named.conf.block"
 HOSTS_URL="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
 
 # Download the latest version of hosts file
-wget --quiet --output-document=$TEMP_HOSTS_FILE $HOSTS_URL
+/usr/bin/wget --quiet --output-document=$TEMP_HOSTS_FILE $HOSTS_URL
 
 # Perform parsing
-awk '
+/usr/bin/awk '
     /^0\.0\.0\.0 / {
         print "zone \""$2"\" { type master; notify no; file \"null.zone.file\"; };"
     }
 ' $TEMP_HOSTS_FILE > $HOSTS_FILE
 
 # Remove temporary hosts file
-rm $TEMP_HOSTS_FILE
+/bin/rm $TEMP_HOSTS_FILE
 
 # Restart the DNS server
-afdns-launch
+/usr/bin/afdns-launch
