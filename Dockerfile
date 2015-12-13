@@ -12,5 +12,6 @@ COPY scripts/afdns-update /usr/bin/afdns-update
 COPY scripts/afdns-launch /usr/bin/afdns-launch
 COPY configs/named.conf /etc/bind/named.conf
 COPY configs/named.conf.options /etc/bind/named.conf.options
+RUN service cron start
 RUN afdns-update
 ENTRYPOINT afdns-update && sh
