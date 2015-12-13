@@ -13,9 +13,6 @@ HOSTS_URL="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
 # Download the latest version of hosts file
 wget --quiet --output-document=$TEMP_HOSTS_FILE $HOSTS_URL
 
-# Create an empty blacklist file
-#cp /dev/null $HOSTS_FILE
-
 # Perform parsing
 awk '
     /^0\.0\.0\.0 / {
