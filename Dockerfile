@@ -13,4 +13,4 @@ COPY scripts/afdns-launch /usr/bin/afdns-launch
 COPY configs/named.conf /etc/bind/named.conf
 COPY configs/named.conf.options /etc/bind/named.conf.options
 RUN afdns-update
-ENTRYPOINT afdns-update && afdns-launch && sh
+ENTRYPOINT afdns-update && sh
