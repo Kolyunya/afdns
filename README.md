@@ -5,4 +5,4 @@ A docker [container](https://hub.docker.com/r/kolyunya/afdns/) with a DNS server
 `docker run --detach --tty --publish=53:53/tcp --publish=53:53/udp --restart=always --name=afdns kolyunya/afdns`
 
 ## Demo
-Demo server is running at `46.101.57.91`
+Demo server is ~~running~~ temporarily not running at `46.101.57.91` due to [this](https://github.com/Kolyunya/afdns/issues/2) issue.
