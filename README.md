@@ -3,6 +3,7 @@ A docker [container](https://hub.docker.com/r/kolyunya/afdns/) with a DNS server
 
 ## Installation
 Just start the container and you are good to go. No configuration is required.
+
 `docker run --detach --tty --publish=53:53/tcp --publish=53:53/udp --restart=always --name=afdns kolyunya/afdns`
 
 ## Demo
