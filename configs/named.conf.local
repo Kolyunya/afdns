@@ -1,0 +1,4 @@
+zone "blacklist" {
+	type master;
+	file "/etc/bind/blacklist.db";
+};
