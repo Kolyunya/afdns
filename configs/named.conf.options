@@ -33,5 +33,9 @@ options {
 	response-policy {
 		zone "blacklist";
 	};
+
+	rate-limit {
+		responses-per-second 8;
+	};
 };
 
