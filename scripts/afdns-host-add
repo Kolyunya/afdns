@@ -1,0 +1,13 @@
+#!/bin/bash
+
+BLACKLIST="$(afdns-blacklist-file)"
+
+if afdns-host-added "${1}";
+then
+    exit 0
+fi
+
+RULE="$(afdns-host-rule ${1})"
+echo "${RULE}" >> ${BLACKLIST}
+
+afdns-restart

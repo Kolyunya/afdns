@@ -1,0 +1,4 @@
+#!/bin/bash
+
+RULE="${1} CNAME ."
+echo "${RULE}"

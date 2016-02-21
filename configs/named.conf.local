@@ -1,4 +1,9 @@
-zone "blacklist" {
+zone "blacklist-auto" {
 	type master;
-	file "/etc/bind/blacklist.db";
+	file "/etc/bind/blacklist-auto.db";
+};
+
+zone "blacklist-custom" {
+	type master;
+	file "/etc/bind/blacklist-custom.db";
 };

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+BLACKLIST="$(afdns-blacklist-file)"
+
+if [ "${1}" = ""  ];
+then
+    exit 1
+fi
+
+RULE="$(afdns-host-rule ${1})"
+if ! grep --quiet "${RULE}" ${BLACKLIST};
+then
+    exit 1
+else
+    exit 0
+fi

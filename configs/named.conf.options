@@ -31,7 +31,8 @@ options {
 	};
 
 	response-policy {
-		zone "blacklist";
+		zone "blacklist-auto";
+		zone "blacklist-custom";
 	};
 
 	rate-limit {

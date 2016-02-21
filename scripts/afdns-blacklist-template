@@ -1,0 +1,4 @@
+#!/bin/bash
+
+BLACKLIST_TEMPLATE="/etc/bind/.blacklist.db"
+echo "${BLACKLIST_TEMPLATE}"

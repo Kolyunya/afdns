@@ -1,0 +1,3 @@
+#!/bin/bash
+
+service bind9 restart 1>/dev/null 2>/dev/null
