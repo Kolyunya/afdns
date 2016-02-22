@@ -1,0 +1,36 @@
+#!/bin/bash
+# This scipt updates automtic blacklist from http://hosts-file.net/
+
+# Source hosts file URL
+HOSTS_URL="http://hosts-file.net/download/hosts.txt"
+
+# Temporary hosts file used for parsing
+HOSTS_TEMP_FILE="/tmp/named.blacklist"
+
+# DNS server blacklist template
+BLACKLIST_TEMPLATE="$(afdns-blacklist-template)"
+
+# DNS server blacklist file
+BLACKLIST_FILE="/etc/bind/blacklist-auto.db"
+
+# Download the latest version of hosts file
+/usr/bin/wget --quiet --output-document=$HOSTS_TEMP_FILE $HOSTS_URL
+
+# Initialize blacklist with template
+cp $BLACKLIST_TEMPLATE $BLACKLIST_FILE
+
+# Perform parsing
+/usr/bin/awk '
+    /^127\.0\.0\.1\t/ {
+        print $2" CNAME ."
+    }
+' $HOSTS_TEMP_FILE >> $BLACKLIST_FILE
+
+# Remove temporary hosts file
+/bin/rm $HOSTS_TEMP_FILE
+
+# Restart the DNS server
+/usr/bin/afdns-restart
+
+# Set default update source
+/bin/ln -fs /usr/bin/afdns-update-hph /usr/bin/afdns-update
