@@ -16,6 +16,9 @@ BLACKLIST_FILE="/etc/bind/blacklist-auto.db"
 # Download the latest version of hosts file
 /usr/bin/wget --quiet --output-document=$HOSTS_TEMP_FILE $HOSTS_URL
 
+# Remove \r characters
+sed -i 's/\r//' $HOSTS_TEMP_FILE
+
 # Initialize blacklist with template
 cp $BLACKLIST_TEMPLATE $BLACKLIST_FILE
 
