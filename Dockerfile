@@ -8,8 +8,6 @@ RUN apt-get install -y bind9
 RUN apt-get install -y wget
 RUN apt-get install -y cron
 COPY scripts/* /usr/bin/
+COPY configs/* /etc/bind/
 COPY scripts/afdns-update /etc/cron.daily/afdns-update
-COPY configs/named.conf.options /etc/bind/named.conf.options
-COPY configs/named.conf.local /etc/bind/named.conf.local
-COPY configs/.blacklist.db /etc/bind/.blacklist.db
 ENTRYPOINT afdns-initialize
