@@ -1,5 +1,5 @@
 #!/bin/bash
-# This scipt parses DNS server blacklist
+# This scipt updates automtic blacklist
 
 # Source hosts file URL
 HOSTS_URL="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Update software repositories.
+apt-get update
+
+# Wget is used to download blacklists.
+apt-get install --yes wget
+
+# Cron is used to update blacklists automatically.
+apt-get install --yes cron
+
+# We already copied custom BIND configs so we want to keep them.
+apt-get install --yes bind9 -o Dpkg::Options::="--force-confold"
+
+# Add a cron job which will update automatic blacklist.
+cp /usr/bin/afdns-update /etc/cron.daily/
+
+# Initialize custom blacklist.
+afdns-blacklist-initialize
