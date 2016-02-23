@@ -8,8 +8,11 @@ Just start the container and you are good to go. No configuration is required.
 
 `docker run --detach --tty --net=host --restart=always --name=afdns kolyunya/afdns`
 
-## Blacklist source selection
-You can select the source to get hosts blacklist from. Two sources are available at the moment: [amalgamated hosts file](https://github.com/StevenBlack/hosts) (default) and [hpHosts](http://hosts-file.net/). Corresponding commands are `afdns-update-ahf` and `afdns-update-hph`. After running any of these commands the blacklist will be updated and the corresponding source will be set as default.
+## Automatic blacklist source selection
+You can select the source to get automatic blacklist from. After running any of the following commands the automatic blacklist will be updated and the corresponding source will be set as default. The following updates via cron job will use that source.
+
+* `afdns-update-ahf` - update automatic blacklist from [amalgamated hosts file](https://github.com/StevenBlack/hosts).
+* `afdns-update-hph` - update automatic blacklist from [hpHosts](http://hosts-file.net/).
 
 ## Custom blacklist management
 You can add and remove hosts to a custom blacklist. You can also backup the entire blacklist.
