@@ -15,21 +15,10 @@ You can select the source to get automatic blacklist from. After running any of 
 * `afdns-update-hph` - update automatic blacklist from [hpHosts](http://hosts-file.net/).
 
 ## Custom blacklist management
-You can add and remove hosts to a custom blacklist. You can also backup the entire blacklist.
-
-The following command will add `foo.bar` to the custom blacklist.
-
-`docker exec afdns afdns-host-add foo.bar`
-
-The following command will remove `foo.bar` from the custom blacklist.
-
-`docker exec afdns afdns-host-remove foo.bar`
-
-The following command will send the entire blacklist to the `stdout`.
-
-`docker exec afdns afdns-blacklist-backup`
-
-Blacklist restoration is not yet implemented.
+The server also has a custom blacklist. The following commands let you manage it.
+* `afdns-host-add foo.bar` -  add `foo.bar` to the custom blacklist.
+* `afdns-host-remove foo.bar` - remove `foo.bar` from the custom blacklist.
+* `afdns-blacklist-backup` - send the entire custom blacklist to the `stdout`.
 
 ## Configuration details
 * DNS server utilized in this container is `BIND 9`.
