@@ -20,9 +20,9 @@ The server also has a custom blacklist. The following commands let you manage it
 * `afdns-host-remove foo.bar` - remove `foo.bar` from the custom blacklist.
 * `afdns-blacklist-backup` - send the entire custom blacklist to the `stdout`.
 
-## Configuration details
+## Default configuration details
 * DNS server utilized in this container is `BIND 9`.
-* Advertisement hosts list is retrieved from [here](https://github.com/StevenBlack/hosts) on a daily basis and contains over 27,000 entries at the moment.
+* Automatic blacklist is retrieved from [amalgamated hosts file](https://github.com/StevenBlack/hosts) once a day.
 * All non-advertisement request are forwarded to `8.8.8.8` and `8.8.4.4`.
 * Response rate limit is set to `8` per second (to mitigate DNS amplification attack).
 
