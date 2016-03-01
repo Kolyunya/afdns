@@ -6,6 +6,3 @@ service bind9 start
 
 # Update automatic blacklist.
 afdns-update
-
-# Keep container running.
-bash

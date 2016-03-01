@@ -5,4 +5,4 @@ EXPOSE 53/tcp
 COPY scripts/* /usr/bin/
 COPY configs/* /etc/bind/
 RUN afdns-install
-ENTRYPOINT afdns-start
+ENTRYPOINT afdns-start && sh
