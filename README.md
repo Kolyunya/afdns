@@ -28,3 +28,6 @@ The server also has a custom blacklist. The following commands let you manage it
 
 ## Demo server
 Demo server is running at `46.101.57.91`.
+
+## Ad free VPN
+This DNS server is incorporated in the [ad free VPN server](https://github.com/Kolyunya/afvpn).
