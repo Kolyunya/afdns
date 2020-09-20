@@ -1,39 +1,28 @@
-#!/bin/bash
-# This scipt updates automtic blacklist from http://hosts-file.net/
+#!/bin/bash -e
 
-# Source hosts file URL
+# This scipt updates automtic blacklist from http://hosts-file.net/.
+
+# Hosts file URL.
 HOSTS_URL="http://hosts-file.net/download/hosts.txt"
 
-# Temporary hosts file used for parsing
-HOSTS_TEMP_FILE="/tmp/named.blacklist"
-
-# DNS server blacklist template
-BLACKLIST_TEMPLATE="$(afdns-blacklist-template)"
-
-# DNS server blacklist file
-BLACKLIST_FILE="/etc/bind/blacklist-auto.db"
-
-# Download the latest version of hosts file
-/usr/bin/wget --quiet --output-document=$HOSTS_TEMP_FILE $HOSTS_URL
+# Download the latest version of the hosts file.
+/usr/bin/wget --quiet --output-document=${AFDNS_BLACKLIST_TEMPORARY} ${HOSTS_URL}
 
 # Remove \r characters
-sed -i 's/\r//' $HOSTS_TEMP_FILE
+sed -i 's/\r//' ${AFDNS_BLACKLIST_TEMPORARY}
 
-# Initialize blacklist with template
-cp $BLACKLIST_TEMPLATE $BLACKLIST_FILE
+# Initialize the blacklist with the template
+cp ${AFDNS_BLACKLIST_TEMPLATE} ${AFDNS_BLACKLIST_AUTO}
 
-# Perform parsing
+# Perform the parsing.
 /usr/bin/awk '
     /^127\.0\.0\.1\t/ {
         print $2" CNAME ."
     }
-' $HOSTS_TEMP_FILE >> $BLACKLIST_FILE
+' ${AFDNS_BLACKLIST_TEMPORARY} >> ${AFDNS_BLACKLIST_AUTO}
 
-# Remove temporary hosts file
-/bin/rm $HOSTS_TEMP_FILE
+# Restart the DNS server.
+service bind9 restart
 
-# Restart the DNS server
-/usr/bin/afdns-restart
-
-# Set default update source
+# Set default update source.
 /bin/ln -fs /usr/bin/afdns-update-hph /usr/bin/afdns-update

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-BLACKLIST_TEMPLATE="$(afdns-blacklist-template)"
-BLACKLIST="$(afdns-blacklist-file)"
-cp ${BLACKLIST_TEMPLATE} ${BLACKLIST}

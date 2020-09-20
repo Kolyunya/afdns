@@ -1,0 +1,11 @@
+version: "2.0"
+services:
+    ad-free-dns:
+        container_name: "afdns"
+        ports:
+            - "53:53/tcp"
+            - "53:53/udp"
+        restart: "always"
+        tty: true
+        build: "."
+        image: "kolyunya/afdns"

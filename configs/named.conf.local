@@ -3,7 +3,7 @@ zone "blacklist-auto" {
 	file "/etc/bind/blacklist-auto.db";
 };
 
-zone "blacklist-custom" {
+zone "blacklist-manual" {
 	type master;
-	file "/etc/bind/blacklist-custom.db";
+	file "/etc/bind/blacklist-manual.db";
 };

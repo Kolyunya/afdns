@@ -1,36 +1,25 @@
-#!/bin/bash
-# This scipt updates automtic blacklist from https://github.com/StevenBlack/hosts
+#!/bin/bash -e
 
-# Source hosts file URL
+# This scipt updates an automtic blacklist from https://github.com/StevenBlack/hosts.
+
+# Hosts file URL.
 HOSTS_URL="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
 
-# Temporary hosts file used for parsing
-HOSTS_TEMP_FILE="/tmp/named.blacklist"
+# Download the latest version of the hosts file.
+/usr/bin/wget --quiet --output-document=${AFDNS_BLACKLIST_TEMPORARY} ${HOSTS_URL}
 
-# DNS server blacklist template
-BLACKLIST_TEMPLATE="$(afdns-blacklist-template)"
+# Initialize the blacklist with the template.
+cp ${AFDNS_BLACKLIST_TEMPLATE} ${AFDNS_BLACKLIST_AUTO}
 
-# DNS server blacklist file
-BLACKLIST_FILE="/etc/bind/blacklist-auto.db"
-
-# Download the latest version of hosts file
-/usr/bin/wget --quiet --output-document=$HOSTS_TEMP_FILE $HOSTS_URL
-
-# Initialize blacklist with template
-cp $BLACKLIST_TEMPLATE $BLACKLIST_FILE
-
-# Perform parsing
+# Perform the parsing.
 /usr/bin/awk '
     /^0\.0\.0\.0 / {
         print $2" CNAME ."
     }
-' $HOSTS_TEMP_FILE >> $BLACKLIST_FILE
+' ${AFDNS_BLACKLIST_TEMPORARY} >> ${AFDNS_BLACKLIST_AUTO}
 
-# Remove temporary hosts file
-/bin/rm $HOSTS_TEMP_FILE
+# Restart the DNS server.
+service bind9 restart
 
-# Restart the DNS server
-/usr/bin/afdns-restart
-
-# Set default update source
+# Set default update source.
 /bin/ln -fs /usr/bin/afdns-update-ahf /usr/bin/afdns-update
