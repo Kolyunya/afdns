@@ -14,10 +14,11 @@ docker-compose up --detach
 If you only have `docker`:
 ```sh
 docker run \
-    --name=afdns \
-    --publish=53:53/tcp \
-    --publish=53:53/udp \
-    --restart=always \
+    --name afdns \
+    --publish 53:53/tcp \
+    --publish 53:53/udp \
+    --mount type=volume,source=afdns_data,target=/etc/bind \
+    --restart always \
     --tty \
     --detach \
     kolyunya/afdns

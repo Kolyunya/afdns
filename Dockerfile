@@ -1,4 +1,4 @@
-FROM debian:8.2
+FROM debian:10
 
 USER root
 
