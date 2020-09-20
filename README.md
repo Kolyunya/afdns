@@ -4,9 +4,25 @@
 A docker [container](https://hub.docker.com/r/kolyunya/afdns/) with a DNS server configured to block advertisement hosts.
 
 ## Installation
-Just start the container and you are good to go. No configuration is required.
+Just start the container and you are good to go. Absolutely no configuration is required.
 
-`docker run --detach --tty --net=host --restart=always --name=afdns kolyunya/afdns`
+If you have `docker-compose`:
+```sh
+docker-compose up --detach
+```
+
+If you only have `docker`:
+```sh
+docker run \
+    --name afdns \
+    --publish 53:53/tcp \
+    --publish 53:53/udp \
+    --mount type=volume,source=afdns_data,target=/etc/bind \
+    --restart always \
+    --tty \
+    --detach \
+    kolyunya/afdns
+```
 
 ## Automatic blacklist source selection
 You can select the source to get automatic blacklist from. After running any of the following commands the automatic blacklist will be updated and the corresponding source will be set as default. The following updates via cron job will use that source.
@@ -15,10 +31,9 @@ You can select the source to get automatic blacklist from. After running any of 
 * `docker exec afdns afdns-update-hph` - update automatic blacklist from [hpHosts](http://hosts-file.net/).
 
 ## Custom blacklist management
-The server also has a custom blacklist. The following commands let you manage it.
-* `docker exec afdns afdns-host-add foo.bar` -  add `foo.bar` to the custom blacklist.
-* `docker exec afdns afdns-host-remove foo.bar` - remove `foo.bar` from the custom blacklist.
-* `docker exec afdns afdns-blacklist-backup` - send the entire custom blacklist to the `stdout`.
+The server also has a manual blacklist. The following commands let you manage it.
+* `docker exec afdns afdns-host-add ad.example.com` -  add `ad.example.com` to the manual blacklist.
+* `docker exec afdns afdns-host-remove ad.example.com` - remove `ad.example.com` from the manual blacklist.
 
 ## Default configuration details
 * DNS server utilized in this container is `BIND 9`.

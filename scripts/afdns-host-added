@@ -1,14 +1,12 @@
-#!/bin/bash
-
-BLACKLIST="$(afdns-blacklist-file)"
+#!/bin/bash -e
 
 if [ "${1}" = ""  ];
 then
     exit 1
 fi
 
-RULE="$(afdns-host-rule ${1})"
-if ! grep --quiet "${RULE}" ${BLACKLIST};
+RULE="$(afdns-host-get-rule ${1})"
+if ! grep --quiet "${RULE}" ${AFDNS_BLACKLIST_MANUAL};
 then
     exit 1
 else

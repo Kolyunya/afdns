@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+service bind9 start
+service cron start
+
+afdns-update
+
+/bin/sh

@@ -1,0 +1,18 @@
+version: "2.0"
+services:
+    afdns:
+        container_name: "afdns"
+        ports:
+            - "53:53/tcp"
+            - "53:53/udp"
+        volumes:
+            -
+                type: "volume"
+                source: "data"
+                target: "/etc/bind"
+        restart: "always"
+        tty: true
+        build: "."
+        image: "kolyunya/afdns"
+volumes:
+    data:

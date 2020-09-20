@@ -1,4 +1,0 @@
-#!/bin/bash
-
-BLACKLIST="$(afdns-blacklist-file)"
-cat ${BLACKLIST}

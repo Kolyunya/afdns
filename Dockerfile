@@ -1,8 +1,18 @@
-FROM debian:8.2
+FROM debian:10
+
 USER root
-EXPOSE 53/udp
+
+ENV AFDNS_BLACKLIST_AUTO /etc/bind/blacklist-auto.db
+ENV AFDNS_BLACKLIST_MANUAL /etc/bind/blacklist-manual.db
+ENV AFDNS_BLACKLIST_TEMPLATE /etc/bind/blacklist.db.template
+ENV AFDNS_BLACKLIST_TEMPORARY /tmp/blacklist-temporary.db
+
 EXPOSE 53/tcp
+EXPOSE 53/udp
+
 COPY scripts/* /usr/bin/
-COPY configs/* /etc/bind/
+COPY configs/* /var/lib/afdns/
+
 RUN afdns-install
-ENTRYPOINT afdns-start && sh
+
+ENTRYPOINT afdns-run

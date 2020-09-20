@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Start services.
-service cron start
-service bind9 start
-
-# Update automatic blacklist.
-afdns-update

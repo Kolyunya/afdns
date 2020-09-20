@@ -1,6 +1,4 @@
-#!/bin/bash
-
-BLACKLIST="$(afdns-blacklist-file)"
+#!/bin/bash -e
 
 if afdns-host-added "${1}";
 then
@@ -12,7 +10,7 @@ then
     exit 1
 fi
 
-RULE="$(afdns-host-rule ${1})"
-echo "${RULE}" >> ${BLACKLIST}
+RULE="$(afdns-host-get-rule ${1})"
+echo "${RULE}" >> ${AFDNS_BLACKLIST_MANUAL}
 
-afdns-restart
+service bind9 restart
