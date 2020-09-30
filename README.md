@@ -41,8 +41,5 @@ The server also has a manual blacklist. The following commands let you manage it
 * All non-advertisement request are forwarded to `8.8.8.8` and `8.8.4.4`.
 * Response rate limit is set to `8` per second (to mitigate DNS amplification attack).
 
-## Demo server
-Demo server is running at `188.166.168.121`.
-
 ## Ad free VPN
 This DNS server is incorporated in the [ad free VPN server](https://github.com/Kolyunya/afvpn).
